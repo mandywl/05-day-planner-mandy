@@ -11,8 +11,8 @@
 
 # Deployed url
 
-* https://github.com/mandywl/04-web-apis-code-quiz-mandy
-* https://mandywl.github.io/04-web-apis-code-quiz-mandy/
+* https://github.com/mandywl/05-day-planner-mandy
+* https://mandywl.github.io/05-day-planner-mandy/
 
 
 # Instructions
