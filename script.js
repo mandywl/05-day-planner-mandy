@@ -1,26 +1,10 @@
 var date = new Date();
 var hours = date.getHours();
-var minutes = date.getMinutes();
-var ampm = hours >= 12 ? 'pm' : 'am';
-
-var month = date.getMonth();
-var day = date.getDate();
-var year = date.getFullYear();
-var dayname = date.getDay();
-var ampm = hours >= 12 ? 'pm' : 'am';
 var childElement = 0;
 var comment;
 var valueEntered;
 var yesterday;
 var today;
-
-var monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"];
-var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-function getOrdinalNum(n) {
-    return n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
-}
 
 function displayTimeTable(time, ele) {
     $(".container").append(
@@ -31,46 +15,51 @@ function displayTimeTable(time, ele) {
             '<i/>', { 'class': 'fa fa-save' }))));
 }
 
-$("#currentDay").text(week[dayname] + " " + monthNames[month] + ", " + getOrdinalNum(day));
-
-
+$("#currentDay").text(moment().format('dddd MMMM, Do'));
 
 
 $(document).ready(function () {
-    var elementClicked;
+    console.log("hour is ", moment().format('h'));
+    var dateArray = [];
     for (var i = 9; i < 22; i++) {
-        // hours = hours % 12;
-        // hours = hours ? hours : 12; // the hour '0' should be '12'
         displayTimeTable(i, childElement)
         if (i < hours) {
-            // console.log("i is ", i);
-            // console.log("hours is ", hours)
             $(".col-7").eq(childElement).addClass("past");
         } else if (i === hours) {
             $(".col-7").eq(childElement).addClass("present");
         } else {
             $(".col-7").eq(childElement).addClass("future");
         }
-        //$(".col-7").eq(childElement).attr("data-name", childElement);
         childElement++;
     }
 
     $('.saveBtn').on('click', function (event) {
         event.preventDefault()
-        event.stopPropagation();
         const value = $(this).siblings("textarea").val();
         const id = $(this).siblings("textarea").attr("id")
-        //console.log(value, id)
         saveValue({ id, value })
-        elementClicked = $(this).prev().attr("data-name", "clicked");
-        $(this).data('clicked', true);
     });
+
+    var day = JSON.stringify(moment().format('Do MMMM YYYY'));
+
+    localStorage.setItem(day, day);
+
+    for (var i = 0; i < localStorage.length; i++) {
+        var itemKey = localStorage.key(i);
+        var values = localStorage.getItem(itemKey);
+        if (values.includes("2020")) {
+            dateArray.push(values);
+        }
+    }
+
+    //Check if there are 2 dates stored in localStorage, then clear localStorage if there's a new date
+    if (dateArray.length == 2) {
+        localStorage.clear();
+    }
 
     for (var i = 0; i < 12; i++) {
         document.getElementById(i).value = getSavedValue(i);
-
     }
-
 });
 
 function saveValue(e) {
