@@ -33,7 +33,7 @@ function getSavedValue(v) {
 
 $(document).ready(function () {
     var dateArray = [];
-    for (var i = 9; i < 22; i++) {
+    for (var i = 9; i < 18; i++) {
         displayTimeTable(i, childElement)
         if (i < hours) {
             $(".col-7").eq(childElement).addClass("past");
@@ -69,7 +69,7 @@ $(document).ready(function () {
         localStorage.clear();
     }
 
-    for (var i = 0; i < 12; i++) {
+    for (var i = 0; i < 9; i++) {
         document.getElementById(i).value = getSavedValue(i);
     }
 });
