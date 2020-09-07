@@ -12,7 +12,7 @@ Third-Party APIs: Work Day Scheduler
 # Deployed url
 
 * https://github.com/mandywl/05-day-planner-mandy
-* https://mandywl.github.io/05-day-planner-mandy/
+* https://mandywl.github.io/day-planner-mandy/
 
 
 # Instructions
